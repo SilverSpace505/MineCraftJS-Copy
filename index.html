@@ -151,7 +151,7 @@
 		varying float vFog;
 
 		vec4 fog(vec4 color) {
-		    color.r += (0.33 - color.r) * vFog;
+			color.r += (0.33 - color.r) * vFog;
 		    color.g += (0.54 - color.g) * vFog;
 			color.b += (0.72 - color.b) * vFog;
 			return color;
@@ -3602,6 +3602,9 @@ function MineKhan() {
 						chunk.setBlock(i, j, k, blockIds.stone)
 					}
 					chunk.setBlock(i, 0, k, blockIds.bedrock)
+					for (let j = 0; j < 256; j++) {
+						if (noise((trueX+i) / 100, j / 50, (trueZ+k) / 100) > 0.65) chunk.setBlock(i, j, k, blockIds.stone)
+					}
 				}
 			}
 			chunk.generated = true
@@ -3794,7 +3797,7 @@ function MineKhan() {
 				if (!doneWork) {
 					break
 				}
-			} while(win.performance.now() - tickStart < 5)
+			} while(win.performance.now() - tickStart < 7)
 		}
 		render() {
 			initModelView(p)
